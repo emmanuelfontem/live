@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source = "../../../modules/services/webserver-cluster"
+  source = "github.com/emmanuelfontem/modules.git//services/webserver-cluster?ref=v1.0.2"
 
   cluster_name = "webservers-stage"
   db_remote_state_bucket = "manuelpolo-s3-bucket"
@@ -14,7 +14,7 @@ module "webserver_cluster" {
   max_size = 2
 }
 
-resource "aws_security_group" "allow_testing_inbound" {
+resource "aws_security_group_rule" "allow_testing_inbound" {
   type = "ingress"
   security_group_id = module.webserver_cluster.alb_security_group_id
 
